@@ -1,0 +1,8 @@
+.idea/
+target/
+test-output/
+/debug.log
+debug.log
+/log/
+/report/
+/screenshot/
