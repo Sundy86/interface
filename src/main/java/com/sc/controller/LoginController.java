@@ -1,11 +1,8 @@
 package com.sc.controller;
 
-import com.sc.impl.LoginServiceImpl;
 import com.sc.model.Function;
-import com.sc.model.User;
 import com.sc.service.ILoginService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

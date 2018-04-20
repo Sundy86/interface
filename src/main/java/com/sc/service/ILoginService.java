@@ -1,8 +1,6 @@
 package com.sc.service;
 
 import com.sc.model.Function;
-import com.sc.model.User;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
