@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface ICaseSystemService {
-    public Map<String,Object> casesystemlist(Integer pageNum, Integer pageSize);
-    public int addcasesystem(CaseSystem caseSystem);
-    public int updatecasesystem(CaseSystem caseSystem);
-    public CaseSystem toupdatecasesystem(String systemid);
-    public int deletecasesystem(String systemid);
-    public String check(String systemname);
+     Map<String,Object> casesystemlist(Integer pageNum, Integer pageSize);
+     int addcasesystem(CaseSystem caseSystem);
+     int updatecasesystem(CaseSystem caseSystem);
+     CaseSystem toupdatecasesystem(String systemid);
+     int deletecasesystem(String systemid);
+     String check(String systemname);
+     List<CaseSystem> getAll();
 
 }

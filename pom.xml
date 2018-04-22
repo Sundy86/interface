@@ -188,8 +188,16 @@
       <artifactId>commons-codec</artifactId>
       <version>1.10</version>
     </dependency>
-
-
+      <dependency>
+          <groupId>com.jayway.jsonpath</groupId>
+          <artifactId>json-path</artifactId>
+          <version>2.4.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.googlecode.aviator</groupId>
+          <artifactId>aviator</artifactId>
+          <version>3.1.0</version>
+      </dependency>
     <!-- 日志文件管理包 -->
     <!-- log start -->
     <dependency>
@@ -233,7 +241,11 @@
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
-
+      <dependency>
+          <groupId>org.uncommons</groupId>
+          <artifactId>reportng</artifactId>
+          <version>1.1.5</version>
+      </dependency>
 
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -263,17 +275,34 @@
           <overwrite>true</overwrite>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-          </suiteXmlFiles>
-          <testFailureIgnore>true</testFailureIgnore>
-        </configuration>
-      </plugin>
+
+        <!-- 添加插件 关联testNg.xml -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                </suiteXmlFiles>
+                <testFailureIgnore>true</testFailureIgnore>
+                <properties>
+                    <property>
+                        <name>usedefaultlisteners</name>
+                        <value>false</value>
+                    </property>
+                    <property>
+                        <name>listener</name>
+                        <value>org.uncommons.reportng.HTMLReporter,
+                            org.uncommons.reportng.JUnitXMLReporter,
+                            com.sc.api.ApiTestReport</value>
+                    </property>
+                </properties>
+                <reportsDirectory>report-output/</reportsDirectory>
+                <workingDirectory>target/</workingDirectory>
+            </configuration>
+        </plugin>
+
     </plugins>
     <resources>
       <!-- 编译之后包含xml和properties -->

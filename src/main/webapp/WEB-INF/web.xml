@@ -8,13 +8,13 @@
   <!-- 读取spring配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:conf/spring-mybatis.xml</param-value>
+    <param-value>classpath:conf/spring-mybatis.xml;classpath:conf/spring.xml</param-value>
   </context-param>
   <!--&lt;!&ndash; web路径 &ndash;&gt;-->
-  <!--<context-param>-->
-    <!--<param-name>webAppRootKey</param-name>-->
-    <!--<param-value>Interfaces.root</param-value>-->
-  <!--</context-param>-->
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>Interfaces.root</param-value>
+  </context-param>
 
   <!-- 编码过滤器 -->
   <filter>
@@ -38,6 +38,9 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
+    <listener>
+        <listener-class>com.sc.listener.CacheLilter</listener-class>
+    </listener>
   <!-- springMVC核心配置 -->
   <servlet>
     <servlet-name>SpringMVC</servlet-name>

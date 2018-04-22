@@ -79,4 +79,9 @@ public class CaseSystemServiceImpl implements ICaseSystemService {
         }
         return s;
     }
+
+    @Override
+    public List<CaseSystem> getAll() {
+        return caseSystemMapper.selectByExample(null);
+    }
 }

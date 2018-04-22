@@ -5,10 +5,12 @@ import com.sc.model.TestCase;
 
 import java.util.Map;
 
-public interface ICaseService {
+public interface ITestCaseService {
      Map<String,Object> caselist(Integer pageNum, Integer pageSize);
      int addcase(TestCase testCase);
-     int deletefunction(String caseid);
-     TestCase getByCaseId(String caseid);
+     int deletecase(String caseId);
+    TestCase getByCaseId(String caseId);
      int updatecase(TestCase testCase);
+    String check(String casename);
+
 }

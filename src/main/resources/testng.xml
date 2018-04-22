@@ -2,10 +2,10 @@
 <suite name="My test suite">
   <test name="单元测试">
     <classes>
-       <!--<class name="cn.springmvc.apitest.ApiTest" />-->
+       <class name="com.sc.api.ApiTest" />
    </classes>
   </test>
-  <!--<listeners>-->
-        <!--<listener class-name="cn.springmvc.apitest.ApiTestReport"/>-->
-    <!--</listeners>-->
+  <listeners>
+        <listener class-name="com.sc.api.ApiTestReport"/>
+    </listeners>
 </suite>

@@ -1,6 +1,7 @@
 package com.sc.controller;
 
 import com.sc.model.Function;
+import com.sc.model.User;
 import com.sc.service.ILoginService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;

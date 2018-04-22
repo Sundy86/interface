@@ -1,5 +1,7 @@
 package com.sc.model;
 
+import com.sc.listener.ObjectCache;
+
 import java.io.Serializable;
 
 public class TestCase implements Serializable {
@@ -8,6 +10,8 @@ public class TestCase implements Serializable {
     private String run;
 
     private String system;
+
+    private String systemname;
 
     private String casename;
 
@@ -99,6 +103,10 @@ public class TestCase implements Serializable {
 
     public String getParams() {
         return params;
+    }
+
+    public String getSystemname(){
+        return ObjectCache.getSystemName(this.system);
     }
 
     public void setParams(String params) {

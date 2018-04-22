@@ -3,6 +3,7 @@ package com.sc.impl;
 import com.sc.dao.FuncRoleMapper;
 import com.sc.dao.FunctionMapper;
 import com.sc.dao.RoleMapper;
+import com.sc.dao.UserMapper;
 import com.sc.model.*;
 import com.sc.service.ILoginService;
 import com.sc.utils.MD5CryptUtil;
