@@ -142,4 +142,9 @@ public class RoleServiceImpl implements IRoleService {
         }
         return s;
     }
+
+    @Override
+    public List<Role> getAll() {
+      return roleMapper.selectByExample(null);
+    }
 }

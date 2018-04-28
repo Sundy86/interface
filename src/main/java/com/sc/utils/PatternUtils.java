@@ -1,9 +1,8 @@
 package com.sc.utils;
 
-import com.sc.model.TestCase;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.sc.model.TestCase;
 
 
 public class PatternUtils {

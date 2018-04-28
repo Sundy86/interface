@@ -1,10 +1,10 @@
 package com.sc.utils;
 
-import com.googlecode.aviator.AviatorEvaluator;
-import com.jayway.jsonpath.JsonPath;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.googlecode.aviator.AviatorEvaluator;
+import com.jayway.jsonpath.JsonPath;
 
 public class CheckPointUtils {
 	

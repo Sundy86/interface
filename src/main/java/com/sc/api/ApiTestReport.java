@@ -1,10 +1,11 @@
 package com.sc.api;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
 import com.sc.dao.ResultDetailMapper;
 import com.sc.dao.ResultMapper;
+import com.sc.mail.MailSender;
 import com.sc.model.Result;
 import com.sc.model.ResultDetail;
 import com.sc.model.TestCase;
@@ -17,12 +18,12 @@ import org.testng.ITestResult;
 import org.testng.collections.Lists;
 import org.testng.xml.XmlSuite;
 
- 
 
-public class ApiTestReport implements ITestListener, IReporter {
+public class ApiTestReport  implements ITestListener, IReporter {
 	private List<ResultDetail> testPassed = Lists.newArrayList();
 	private List<ResultDetail> testFailed = Lists.newArrayList();
 	private List<ErrorReport> errorList = Lists.newArrayList();
+
 
 	@Override
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
@@ -36,17 +37,26 @@ public class ApiTestReport implements ITestListener, IReporter {
 		result.setFail(testFailed.size());
 		ResultMapper testResultMapper = SpringContextUtils.getBean(ResultMapper.class);
 		testResultMapper.insertSelective(result);
-		ResultDetailMapper ResultDetailMapper = SpringContextUtils.getBean(ResultDetailMapper.class);
+		ResultDetailMapper testResultDetailMapper = SpringContextUtils.getBean(ResultDetailMapper.class);
+
 
 		testPassed.addAll(testFailed);
-		for (ResultDetail ResultDetail : testPassed) {
-			ResultDetail.setRuntime(date);
-			try {
-				ResultDetailMapper.insertSelective(ResultDetail);
-			} catch (Exception ex) {
+		for (ResultDetail testResultDetail : testPassed) {
+			testResultDetail.setRuntime(date);
+			try{
+				testResultDetailMapper.insertSelective(testResultDetail);
+			}catch(Exception ex){
 				ex.printStackTrace();
 			}
 		}
+        MailSender mailSender = SpringContextUtils.getBean(MailSender.class);
+        if(!testFailed.isEmpty()){
+         HashMap<String,Object> map = new HashMap<String,Object>();
+		 map.put("runtime", date);
+		 map.put("reportlist", errorList);
+		 mailSender.send(map,"error.ftl");
+        }
+
 	}
 
 	@Override
@@ -55,29 +65,29 @@ public class ApiTestReport implements ITestListener, IReporter {
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		Object o = result.getParameters()[0];
-		TestCase testCase = (TestCase) o;
+		Object o=  result.getParameters()[0];
+		TestCase testCase =(TestCase)o;
 		long start = result.getStartMillis();
 		long end = result.getEndMillis();
 		ResultDetail resultDetail = new ResultDetail();
 		resultDetail.setCaseid(testCase.getUuid());
 		resultDetail.setResult("Y");
-		resultDetail.setTaketime(end - start);
+		resultDetail.setTaketime(end-start);
 		resultDetail.setSystem(testCase.getSystem());
 		testPassed.add(resultDetail);
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		Object o = result.getParameters()[0];
-		TestCase testCase = (TestCase) o;
+		Object o=  result.getParameters()[0];
+		TestCase testCase =(TestCase)o;
 		long start = result.getStartMillis();
 		long end = result.getEndMillis();
 
 		ResultDetail resultDetail = new ResultDetail();
 		resultDetail.setCaseid(testCase.getUuid());
 		resultDetail.setResult("N");
-		resultDetail.setTaketime(end - start);
+		resultDetail.setTaketime(end-start);
 		resultDetail.setSystem(testCase.getSystem());
 		String msg = result.getThrowable().getMessage();
 		System.out.println(msg);
@@ -91,6 +101,8 @@ public class ApiTestReport implements ITestListener, IReporter {
 		System.out.println(error);
 		result.getThrowable();
 	}
+
+
 
 	@Override
 	public void onTestSkipped(ITestResult result) {

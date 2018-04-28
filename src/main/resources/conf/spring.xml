@@ -14,27 +14,52 @@
                            http://www.springframework.org/schema/task  
                            http://www.springframework.org/schema/task/spring-task-4.0.xsd  ">
 
+    <!-- 引入mail配置文件 -->
+    <context:property-placeholder location="classpath:prop/mail.properties"/>
     <!-- 扫描文件（自动将servicec层注入） -->
     <context:component-scan base-package="com.sc.service" />
     <context:component-scan base-package="com.sc.impl" />
     <context:component-scan base-package="com.sc.api" />
     <task:annotation-driven />
 
-
-
-
-    <!--&lt;!&ndash;配置定时任务&ndash;&gt;-->
-    <!--<task:executor id="executor" pool-size="5" />-->
-    <!--&lt;!&ndash;配置线程池&ndash;&gt;-->
-    <!--<task:scheduler id="scheduler" pool-size="10" />-->
-    <!--&lt;!&ndash;配置定时任务&ndash;&gt;-->
-    <!--<task:annotation-driven executor="executor" scheduler="scheduler" />-->
-
-
-    <!--<task:annotation-driven scheduler="myScheduler"/>-->
-    <!--<task:scheduler id="myScheduler" pool-size="5"/>-->
     <!-- 此文件为spring配置文件的扫描 -->
     <bean class="com.sc.utils.SpringContextUtils" lazy-init="false"/>
+
+    <!--FreeMarker模板 -->
+    <bean id="freeMarkerConfigurer"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="classpath:freemaker/" />
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="locale">zh_CN</prop>
+                <prop key="default_encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean class="com.sc.mail.MailSender" />
+    <!--邮件发送 -->
+    <bean id="MailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="host" value="${mail.host}" />
+        <property name="username" value="${mail.username}" />
+        <property name="password" value="${mail.password}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="classic_compatible">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.username}" />
+        <property name="subject" value="${mail.title}" />
+        <property name="to" value="${mail.touser}" />
+    </bean>
 
 </beans>
 

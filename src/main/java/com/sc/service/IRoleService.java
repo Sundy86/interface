@@ -14,6 +14,6 @@ public interface IRoleService {
      int updaterole(Role role);
      Map<String,Object> toupdaterole(String roleid);
      String check(String rolename);
-
+     List<Role> getAll();
 
 }

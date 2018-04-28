@@ -1,5 +1,7 @@
 package com.sc.model;
 
+import com.sc.listener.ObjectCache;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -16,6 +18,8 @@ public class User implements Serializable {
     private String addr;
 
     private String roleid;
+
+    private String rolename;
 
     private String description;
 
@@ -123,6 +127,10 @@ public class User implements Serializable {
 
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
+    }
+
+    public String getRolename(){
+        return ObjectCache.getName(this.roleid);
     }
 
     @Override

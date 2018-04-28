@@ -3,16 +3,15 @@ package com.sc.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.dao.TestCaseMapper;
+import com.sc.listener.ObjectCache;
+import com.sc.model.CaseSystem;
 import com.sc.model.TestCase;
 import com.sc.model.TestCaseCriteria;
 import com.sc.service.ITestCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Suncy on 2018/4/21 0021.
@@ -78,5 +77,17 @@ public class TestCaseServiceImpl implements ITestCaseService{
             s="N";
         }
         return s;
+    }
+
+    @Override
+    public List<CaseSystem> getSystem() {
+        List<Object> objects = ObjectCache.getAllObject();
+        List<CaseSystem> systems = new ArrayList<CaseSystem>();
+        for(Object object:objects){
+            if(object instanceof CaseSystem){
+                systems.add((CaseSystem) object);
+            }
+        }
+        return systems;
     }
 }

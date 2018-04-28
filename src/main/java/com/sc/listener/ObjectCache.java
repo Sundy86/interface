@@ -1,6 +1,7 @@
 package com.sc.listener;
 
 import com.sc.model.CaseSystem;
+import com.sc.model.Role;
 
 import java.util.*;
 
@@ -23,6 +24,22 @@ public class ObjectCache {
             map.remove(key);
         }
     }
+
+    public static List getAllObject(){
+        List  list = new ArrayList();
+        Set<String> set = map.keySet();
+        for(String s : set){
+            Object object = map.get(s);
+            if(object instanceof CaseSystem){
+                list.add((CaseSystem) object);
+            }
+            if( object instanceof Role){
+                list.add((Role) object);
+            }
+        }
+        return list;
+    }
+
     public static List<CaseSystem> getAllSystem(){
         List<CaseSystem> list = new ArrayList<CaseSystem>();
         Set<String> set = map.keySet();
@@ -35,10 +52,13 @@ public class ObjectCache {
         return list;
     }
 
-    public static String getSystemName(String id){
+    public static String getName(String id){
         Object object = get(id);
         if(object!=null && object instanceof CaseSystem){
              return  ((CaseSystem) object).getSystemname();
+        }
+        if(object!=null && object instanceof Role){
+            return  ((Role) object).getRolename();
         }
         return "";
     }

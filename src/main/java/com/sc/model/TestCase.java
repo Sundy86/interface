@@ -106,7 +106,7 @@ public class TestCase implements Serializable {
     }
 
     public String getSystemname(){
-        return ObjectCache.getSystemName(this.system);
+        return ObjectCache.getName(this.system);
     }
 
     public void setParams(String params) {

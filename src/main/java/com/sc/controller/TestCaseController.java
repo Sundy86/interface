@@ -31,7 +31,7 @@ public class TestCaseController {
     }
     @RequestMapping(value = "/toaddcase.do")
     public String toAddCase(){
-        request.setAttribute("systemnames", ObjectCache.getAllSystem());
+        request.setAttribute("systemnames",testCaseService.getSystem());
         return "case/addCase";
     }
     @RequestMapping(value = "/addcase.do")
@@ -43,7 +43,7 @@ public class TestCaseController {
     public String toUpdateCase(String caseId){
         TestCase testCase =testCaseService.getByCaseId(caseId);
         request.setAttribute("case",testCase);
-        request.setAttribute("systemnames",ObjectCache.getAllSystem());
+        request.setAttribute("systemnames",testCaseService.getSystem());
         return "case/updateCase";
     }
     @RequestMapping(value = "/updatecase.do")

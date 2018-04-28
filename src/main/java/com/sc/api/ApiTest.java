@@ -25,10 +25,11 @@ public class ApiTest {
         if ("get".equalsIgnoreCase(testCase.getType())) {
             reString = HttpUtils.doGet(testCase.getUrl(), MapUtils.covertStringToMp(testCase.getHeader()));
         } else if ("post".equalsIgnoreCase(testCase.getType())) {
-            reString = HttpUtils.doPost(testCase.getUrl(), MapUtils.covertStringToMp(testCase.getParams(), "&"),MapUtils.covertStringToMp(testCase.getHeader()));
+            reString = HttpUtils.doPost(testCase.getUrl(),MapUtils.covertStringToMp(testCase.getParams(), "&"),MapUtils.covertStringToMp(testCase.getHeader()));
         }else if ("postjson".equalsIgnoreCase(testCase.getType())) {
             reString = HttpUtils.doPostJson(testCase.getUrl(), testCase.getParams(), MapUtils.covertStringToMp(testCase.getHeader()));
         }
+        System.out.println(reString);
         boolean check = CheckPointUtils.checkbyJsonPath(reString, testCase.getCheckpoint());
 
         if (check) {
@@ -38,7 +39,7 @@ public class ApiTest {
     }
 
 
-    //	    @DataProvider(name = "exceldata")
+//	    @DataProvider(name = "exceldata")
 //	    public Iterator<Object[]> parameterIntTestProvider() {
 //	    	List<Object[]> dataProvider = new ArrayList<Object[]>();
 //	    	String path = System.getProperty("user.dir") + File.separator + "data" + File.separator;
@@ -54,6 +55,7 @@ public class ApiTest {
 //			}
 //	        return dataProvider.iterator();
 //	    }
+
     @DataProvider(name = "db")
     public Iterator<Object[]> parameterIntTestProvider() {
         List<Object[]> dataProvider = new ArrayList<Object[]>();
