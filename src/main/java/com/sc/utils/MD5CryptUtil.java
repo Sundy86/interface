@@ -1,32 +1,34 @@
 package com.sc.utils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
+import org.springframework.security.authentication.encoding.BaseDigestPasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 
 public class MD5CryptUtil
 {
-
+	private static BaseDigestPasswordEncoder baseEncoder = new Md5PasswordEncoder();
     
 	public static void main(String[] args) {
-		System.out.println(DigestUtils.md5Hex("123"));
-		
-		System.out.println(DigestUtils.md5Hex("123"));
-		
-		System.out.println("---------");
-		
-		System.out.println(Md5Crypt.md5Crypt("123".getBytes()));
-		System.out.println(Md5Crypt.md5Crypt("123".getBytes()));
-		
-		
+//		System.out.println(DigestUtils.md5Hex("123"));
+//
+//		System.out.println(DigestUtils.md5Hex("123"));
+//
+//		System.out.println("---------");
+//
+//		System.out.println(Md5Crypt.md5Crypt("123".getBytes()));
+//		System.out.println(Md5Crypt.md5Crypt("123".getBytes()));
+
+		System.out.println(DigestUtils.md5Hex("admin"+"f9eef08f-830c-44c0-833a-90060663be85"));
 //		String tt1 = Md5Crypt.md5Crypt("333".getBytes());
 //		System.out.println(tt1);
 //		String mysalt = getSalts(tt1);
 //		System.out.println(Md5Crypt.md5Crypt("333".getBytes(), mysalt));
 //
-//		String tt2 = Md5Crypt.md5Crypt("333".getBytes());
-//		System.out.println(tt2);
-//		mysalt = getSalts(tt2);
-//		System.out.println(Md5Crypt.md5Crypt("333".getBytes(), mysalt));
+		String tt2 = Md5Crypt.md5Crypt("333".getBytes());
+		System.out.println(tt2);
+		String mysalt = getSalts(tt2);
+		System.out.println(Md5Crypt.md5Crypt("333".getBytes(), mysalt));
 	}
 
 	public static String getSalts(String password) {
@@ -41,5 +43,5 @@ public class MD5CryptUtil
 		mysalt += "$";
 		return mysalt;
 	}
-    
+
 }

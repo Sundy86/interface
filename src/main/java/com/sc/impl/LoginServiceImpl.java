@@ -7,6 +7,7 @@ import com.sc.dao.UserMapper;
 import com.sc.model.*;
 import com.sc.service.ILoginService;
 import com.sc.utils.MD5CryptUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,11 @@ public class LoginServiceImpl implements ILoginService {
         if(objs.size()>0){
             User user1 = objs.get(0);
             //获取后台的用户密码
-            String md5Pass =  MD5CryptUtil.getSalts(user1.getPassword());
+            String md5PassSalt =  MD5CryptUtil.getSalts(user1.getPassword());
             //将用户输入的密码加密
-            String pass = Md5Crypt.md5Crypt(password.getBytes(),md5Pass);
+            String pass = Md5Crypt.md5Crypt(password.getBytes(),md5PassSalt);
+
+           //  String pass = DigestUtils.md5Hex(password +user1.getUserid());
             //判断用户输入的密码与后台密码是否一致
             if(!pass.equals(user1.getPassword())){
                 request.setAttribute("error", "密码错误!");
