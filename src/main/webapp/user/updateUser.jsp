@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="tanchuk">
   <div class="tan_top"></div>
   <div class="tan_main">
-  <form action="user/edituser.do" method="post">
+  <form action="/user/updateuser.do" method="post">
   	<input type="hidden" name="userid" value="${user.userid }">
 	<table class="tck" width="213" border="0" cellspacing="0" cellpadding="0">
 		<tr bgcolor=white><td align=right>工&nbsp;&nbsp;号：</td><td>

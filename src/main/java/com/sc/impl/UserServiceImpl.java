@@ -11,9 +11,11 @@ import com.sc.model.User;
 import com.sc.model.UserCriteria;
 import com.sc.service.IUserService;
 import com.sc.utils.MD5CryptUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.provider.MD5;
 
 import java.util.*;
 
@@ -52,6 +54,7 @@ public class UserServiceImpl implements IUserService {
 
        user.setUserid(UUID.randomUUID().toString());
        user.setPassword(Md5Crypt.md5Crypt(user.getPassword().getBytes()));
+       // user.setPassword(DigestUtils.md5Hex(user.getPassword()+user.getUserid()));
         return  userMapper.insert(user);
     }
 

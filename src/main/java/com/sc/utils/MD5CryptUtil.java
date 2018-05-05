@@ -2,6 +2,7 @@ package com.sc.utils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 
+
 public class MD5CryptUtil
 {
 
